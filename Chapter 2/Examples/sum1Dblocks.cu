@@ -18,7 +18,7 @@
 __global__ void sumMatrixOnGPUblocks1D(float *MatA, float *MatB, float *MatC, int nx, int ny) {
 
     unsigned int ix = threadIdx.x + blockIdx.x * blockDim.x;
-    unsigned int iy = ny;
+    unsigned int iy = blockIdx.y;                                           // threadIdx.y + blockIdx.y * blockDim.y == blockIdx.y
     unsigned int idx = iy*nx + ix;
 
     if (ix < nx && iy < ny) 
@@ -127,7 +127,7 @@ int main(int argc, char **argv) {
     // invoke kernel at host side
     int dimx = 32;
     dim3 block(dimx);
-    dim3 grid((nx+block.x-1)/block.x, ny);
+    dim3 grid((nx+block.x-1)/block.x, ny);                                                      // (ny+block.y-1)/block.y == ny
     iStart = cpuSecond();
     sumMatrixOnGPUblocks1D <<< grid, block >>>(d_MatA, d_MatB, d_MatC, nx, ny);
     cudaDeviceSynchronize();

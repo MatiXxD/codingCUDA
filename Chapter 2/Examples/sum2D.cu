@@ -87,8 +87,8 @@ int main(int argc, char **argv) {
     CHECK(cudaSetDevice(dev));
 
     // set up date size of matrix
-    int nx = 1<<14;
-    int ny = 1<<14;
+    int nx = 1 << 14;
+    int ny = 1 << 14;
     int nxy = nx*ny;
     int nBytes = nxy * sizeof(float);
     printf("Matrix size: nx %d ny %d\n",nx, ny);
