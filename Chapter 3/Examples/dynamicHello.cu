@@ -1,3 +1,5 @@
+// Compile with flag -rdc=true
+
 #include <stdio.h>
 #include <cuda_runtime.h>
 
